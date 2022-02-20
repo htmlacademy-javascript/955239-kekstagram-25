@@ -1,17 +1,16 @@
-// официальный сайт https://developer.mozilla.org/ru/docs/Learn
 function getRandomNumber (min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  if (min > max || min < 0) {
+    throw new Error('неприемлемый ввод');
+  }
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 getRandomNumber();
 
 
-function lengthCheck(inspectedString, maxLength) {
+function isStringAccepted(inspectedString, maxLength) {
   if (inspectedString.length <= maxLength) {
     return true;
   }
   return false;
 }
-
-lengthCheck();
+isStringAccepted();
