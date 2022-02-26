@@ -11,10 +11,11 @@ function isStringAccepted(inspectedString, maxLength) {
   }
   return false;
 }
+isStringAccepted();
 
-const getRandomArrayElement = (elements) => {
+function getRandomArrayElement(elements) {
   return elements[getRandomNumber(0, elements.length - 1)];
-};
+}
 
 const DESCRIPTIONS_PHOTOS = [
   'Великолепный вид',
@@ -44,23 +45,24 @@ const MESSAGES_COMMENTS = [
 
 const SIMILAR_ENTITY_COUNT = 25;
 
-const createRandomComment = () => {
+function createRandomComment() {
   return {
     id: getRandomNumber(1, 25),
     avatar: `img/avatar${getRandomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(MESSAGES_COMMENTS),
     nameusers: getRandomArrayElement(NAMES_USERS),
-  }
+  };
 }
 
-const createRandomPhotoWithId = (id) => {
+function createRandomPhotoWithId(id) {
   return {
     id: id,
     url: `photos/${id}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS_PHOTOS),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: getRandomNumber(1,10)}, createRandomComment),
-  }
-};
+  };
+}
 
-console.log(Array.from({length: SIMILAR_ENTITY_COUNT}, (_,idx) => createRandomPhotoWithId(idx+1)));
+const similarEntity = Array.from({length: SIMILAR_ENTITY_COUNT}, (_,idx) => createRandomPhotoWithId(idx+1));
+similarEntity();
