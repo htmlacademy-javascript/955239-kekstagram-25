@@ -45,9 +45,11 @@ const MESSAGES_COMMENTS = [
 
 const SIMILAR_ENTITY_COUNT = 25;
 
+const OPTION_NUMBER = 200;
+
 function createRandomComment() {
   return {
-    id: getRandomNumber(1, 25),
+    id: getRandomNumber(1, OPTION_NUMBER),
     avatar: `img/avatar${getRandomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(MESSAGES_COMMENTS),
     nameusers: getRandomArrayElement(NAMES_USERS),
