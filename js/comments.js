@@ -21,13 +21,13 @@ const MESSAGES_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-function createRandomComment() {
-  return {
+const createRandomComment = () => (
+  {
     id: getRandomNumber(1, OPTION_NUMBER),
     avatar: `img/avatar${getRandomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(MESSAGES_COMMENTS),
     nameusers: getRandomArrayElement(NAMES_USERS),
-  };
-}
+  }
+);
 
 export {createRandomComment, MESSAGES_COMMENTS, NAMES_USERS};

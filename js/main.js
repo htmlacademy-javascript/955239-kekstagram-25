@@ -1,3 +1,3 @@
-import {similarEntity} from './data.js';
+import {formsSimilarEntity} from './data.js';
 
-similarEntity();
+formsSimilarEntity();

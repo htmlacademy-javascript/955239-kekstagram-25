@@ -8,14 +8,14 @@ const DESCRIPTIONS_PHOTOS = [
   'Довольно вызывающе',
 ];
 
-function createRandomPhotoWithId(id) {
-  return {
+const createRandomPhotoWithId = (id) => (
+  {
     id: id,
     url: `photos/${id}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS_PHOTOS),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: getRandomNumber(1,10)}, createRandomComment),
-  };
-}
+  }
+);
 
 export {createRandomPhotoWithId};
