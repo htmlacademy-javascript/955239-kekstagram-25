@@ -1,5 +1,6 @@
 import './comments.js';
 
+
 const bigPicture = document.querySelector('.big-picture');
 const commentsContainer = bigPicture.querySelector('.social__comments');
 const commentTemplate = bigPicture.querySelector('.social__comment');
@@ -11,9 +12,11 @@ const commentsFragment = document.createDocumentFragment();
 
 const createCommentItem = (comment) => {
   const commentItem = document.createElement('li');
+  commentItem.classList.add('social__comment');
+
   commentItem.innerHTML = `<img
     class="social__picture"
-    src="${comment.avatar}"
+    src="img/${comment.avatar}"
     alt="${comment.nameusers}"
     width="35" height="35">
   <p class="social__text">${comment.message}</p>`;
@@ -26,13 +29,14 @@ const hideBigPicture = () => {
 
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
-
+  commentsContainer.innerHTML = '';
 };
 
 bigPicturesCancel.addEventListener('click', hideBigPicture);
 
 const showBigPicture = (picture) => {
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
+  bigPicture.querySelector('.big-picture__img img').alt = picture.id;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
   bigPicture.querySelector('.social__caption').textContent = picture.description;
@@ -55,7 +59,6 @@ const showBigPicture = (picture) => {
   };
 
   document.addEventListener('keydown', handleEscape);
-
 };
 
 export {showBigPicture, bigPicture, commentsContainer, commentTemplate, loaderComments, socialCommentCount, commentsFragment};
