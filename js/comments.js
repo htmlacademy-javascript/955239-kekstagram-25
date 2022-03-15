@@ -24,7 +24,7 @@ const MESSAGES_COMMENTS = [
 const createRandomComment = () => (
   {
     id: getRandomNumber(1, OPTION_NUMBER),
-    avatar: `img/avatar${getRandomNumber(1, 6)}.svg`,
+    avatar: `avatar-${getRandomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(MESSAGES_COMMENTS),
     nameusers: getRandomArrayElement(NAMES_USERS),
   }
