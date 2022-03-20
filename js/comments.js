@@ -10,7 +10,7 @@ const NAMES_USERS = [
   'Фадей',
 ];
 
-const OPTION_NUMBER = 200;
+const OPTION_NUMBER = 140;
 
 const MESSAGES_COMMENTS = [
   'Всё отлично!',

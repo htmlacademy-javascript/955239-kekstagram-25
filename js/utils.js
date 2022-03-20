@@ -12,6 +12,17 @@ const isStringAccepted = (inspectedString, maxLength) => {
   return false;
 };
 
+const handleEscape = (evt, action) => {
+  if(evt.key === 'Escape') {
+    action();
+    document.removeEventListener('keydown', handleEscape);
+  }
+};
+
+const addEscapeListener = (action) => document.addEventListener('keydown', (evt) => handleEscape(evt, action));
+
+const removeEscapeListener = () => document.removeEventListener('keydown', handleEscape);
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement, isStringAccepted};
+export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener};
