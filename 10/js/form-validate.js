@@ -31,10 +31,7 @@ const commentLengthCheck = (value) => value.length <= maxLengthComment;
 pristine.addValidator(document.querySelector('[name="description"]'), commentLengthCheck, 'не больше 140 символов');
 
 imageUploadForm .addEventListener('submit', (evt) => {
-  console.log(1);
   if(!pristine.validate()) {
-    console.log(2);
-    console.log(pristine);
     evt.preventDefault();
   }
 });
