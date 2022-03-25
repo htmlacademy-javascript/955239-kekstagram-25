@@ -4,6 +4,7 @@ import '../pristine/pristine.min.js';
 
 const HASHTAG_MAX_COUNT = 5;
 const maxLengthComment = 140;
+const imgSubmitButton = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(imageUploadForm , {
   classTo: 'text-item',
@@ -33,6 +34,14 @@ pristine.addValidator(document.querySelector('[name="description"]'), commentLen
 imageUploadForm .addEventListener('submit', (evt) => {
   if(!pristine.validate()) {
     evt.preventDefault();
+  }
+});
+
+document.addEventListener('keyup', () => {
+  if (pristine.validate()){
+    imgSubmitButton.disabled = false;
+  }else{
+    imgSubmitButton.disabled = true;
   }
 });
 

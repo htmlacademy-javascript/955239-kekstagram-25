@@ -41,13 +41,20 @@ commentForm.addEventListener('focusout', () => {
   document.addEventListener('keydown', handleEscape);
 });
 
+tagsForm.addEventListener('focus', () => {
+  document.removeEventListener('keydown', handleEscape);
+});
+tagsForm.addEventListener('focusout', () => {
+  document.addEventListener('keydown', handleEscape);
+});
+
 imgUploadButton.addEventListener('change', () => {
-  const f = imgUploadButton.files[0];
-  if (f) {
+  const file = imgUploadButton.files[0];
+  if (file) {
     previewPhoto.onload = () => {
       URL.revokeObjectURL(previewPhoto.src);
     };
-    previewPhoto.src = URL.createObjectURL(f);
+    previewPhoto.src = URL.createObjectURL(file);
     openImgUploadPopup();
   }
 });
@@ -57,4 +64,4 @@ closeEditButton.addEventListener('click', () => {
   document.removeEventListener('keydown', handleEscape);
 });
 
-export {imgPopupUpload, imgPopupCloseButton, imgUploadButton, commentForm, imageUploadForm, imageUploadWrapper};
+export {imgPopupUpload, imgPopupCloseButton, imgUploadButton, commentForm, imageUploadForm, imageUploadWrapper, closeImgUploadPopup};
