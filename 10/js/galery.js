@@ -28,6 +28,11 @@ const showBigPicture = (picture) => {
       .forEach((comment) => commentsFragment.appendChild(createCommentItem(comment)));
     commentsContainer.appendChild(commentsFragment);
     socialCommentCount.textContent=`${commentsContainer.childElementCount} из ${picture.comments.length} комментариев`;
+    if (picture.comments.length === commentsContainer.childElementCount){
+      loaderComments.classList.add('hidden');
+    }else{
+      loaderComments.classList.remove('hidden');
+    }
   };
 
   const hideBigPicture = () => {
