@@ -38,11 +38,7 @@ imageUploadForm .addEventListener('submit', (evt) => {
 });
 
 document.addEventListener('keyup', () => {
-  if (pristine.validate()){
-    imgSubmitButton.disabled = false;
-  }else{
-    imgSubmitButton.disabled = true;
-  }
+  imgSubmitButton.disabled = !pristine.validate();
 });
 
 export {pristine, maxLengthComment};
