@@ -4,6 +4,7 @@ import '../pristine/pristine.min.js';
 
 const HASHTAG_MAX_COUNT = 5;
 const maxLengthComment = 140;
+const imgSubmitButton = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(imageUploadForm , {
   classTo: 'text-item',
@@ -25,16 +26,19 @@ const hashtagsCommentValidate = (value) => {
   }
   return hashtags.every((hashtag) => regularExpressionFragment.test(hashtag));
 };
-pristine.addValidator(document.querySelector('[name="hashtags"]'), hashtagsCommentValidate, 'errorsMesage');
+pristine.addValidator(document.querySelector('[name="hashtags"]'), hashtagsCommentValidate, 'xэш-тег начинается с символа #, не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;,не может состоять только из одной #,максимальная длина одного хэш-тега 20 символов, включая решётку,нечувствительны к регистру,разделяются пробелами,один и тот же хэш-тег не может быть использован дважды;,нельзя указать больше пяти хэш-тегов;');
 
 const commentLengthCheck = (value) => value.length <= maxLengthComment;
-pristine.addValidator(document.querySelector('[name="description"]'), commentLengthCheck, 'commentError');
+pristine.addValidator(document.querySelector('[name="description"]'), commentLengthCheck, 'не больше 140 символов');
 
 imageUploadForm .addEventListener('submit', (evt) => {
-  evt.preventDefault();
   if(!pristine.validate()) {
     evt.preventDefault();
   }
+});
+
+document.addEventListener('keyup', () => {
+  imgSubmitButton.disabled = !pristine.validate();
 });
 
 export {pristine, maxLengthComment};
