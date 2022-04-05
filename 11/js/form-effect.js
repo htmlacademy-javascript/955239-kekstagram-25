@@ -59,6 +59,20 @@ effectItems.forEach((item) => {
     const effect = item.getAttribute('value');
     switch (effect) {
       case 'chrome':
+        sliderElement.noUiSlider.updateOptions({
+          range: {
+            min: 0,
+            max: 1,
+          },
+          start: 1,
+          step: 0.1,
+        });
+        sliderElement.classList.remove('hidden');
+        sliderElement.noUiSlider.on('update', () => {
+          uploadPreview.style['-webkit-filter'] = `grayscale(${sliderElement.noUiSlider.get()})`;
+          uploadPreview.style['filter'] = `grayscale(${sliderElement.noUiSlider.get()})`;
+        });
+        break;
       case 'sepia':
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -69,17 +83,10 @@ effectItems.forEach((item) => {
           step: 0.1,
         });
         sliderElement.classList.remove('hidden');
-        if (effect === 'sepia'){
-          sliderElement.noUiSlider.on('update', () => {
-            uploadPreview.style['-webkit-filter'] = `sepia(${sliderElement.noUiSlider.get()})`;
-            uploadPreview.style['filter'] = `sepia(${sliderElement.noUiSlider.get()})`;
-          });
-        } else {
-          sliderElement.noUiSlider.on('update', () => {
-            uploadPreview.style['-webkit-filter'] = `grayscale(${sliderElement.noUiSlider.get()})`;
-            uploadPreview.style['filter'] = `grayscale(${sliderElement.noUiSlider.get()})`;
-          });
-        }
+        sliderElement.noUiSlider.on('update', () => {
+          uploadPreview.style['-webkit-filter'] = `sepia(${sliderElement.noUiSlider.get()})`;
+          uploadPreview.style['filter'] = `sepia(${sliderElement.noUiSlider.get()})`;
+        });
         break;
       case 'marvin':
         sliderElement.noUiSlider.updateOptions({
