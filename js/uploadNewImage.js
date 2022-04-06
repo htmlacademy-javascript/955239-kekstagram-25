@@ -1,5 +1,6 @@
 import './galery.js';
 import { pristine } from './form-validate.js';
+import { setDefaultScale, removeEffect } from './form-effect.js';
 
 //загрузка нового изображения
 const imageContainer = document.querySelector('.img-upload');
@@ -32,6 +33,8 @@ const openImgUploadPopup = () => {
   imgPopupUpload.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', handleEscape);
+  setDefaultScale();
+  removeEffect();
 };
 
 commentForm.addEventListener('focus', () => {
