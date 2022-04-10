@@ -13,7 +13,7 @@ const createCommentItem = (comment) => {
 
   commentItem.innerHTML = `<img
     class="social__picture"
-    src="img/${comment.avatar}"
+    src="${comment.avatar}"
     alt="${comment.nameusers}"
     width="35" height="35">
   <p class="social__text">${comment.message}</p>`;

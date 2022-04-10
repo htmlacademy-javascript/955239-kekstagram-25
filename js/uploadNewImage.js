@@ -15,6 +15,7 @@ const previewPhoto = document.querySelector('.img-upload__preview img');
 const closeEditButton = document.querySelector('.img-upload__cancel ');
 
 const closeImgUploadPopup = () => {
+  imageUploadForm.reset();
   imgPopupUpload.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };

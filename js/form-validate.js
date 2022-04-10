@@ -1,6 +1,8 @@
 import './pictures.js';
-import {imageUploadForm } from './uploadNewImage.js';
+import {imageUploadForm, closeImgUploadPopup } from './uploadNewImage.js';
 import '../pristine/pristine.min.js';
+import {sendData} from './api.js';
+import {showAlert} from './utils.js';
 
 const HASHTAG_MAX_COUNT = 5;
 const maxLengthComment = 140;
@@ -31,10 +33,16 @@ pristine.addValidator(document.querySelector('[name="hashtags"]'), hashtagsComme
 const commentLengthCheck = (value) => value.length <= maxLengthComment;
 pristine.addValidator(document.querySelector('[name="description"]'), commentLengthCheck, 'не больше 140 символов');
 
+
 imageUploadForm .addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  //console.log(new FormData(evt.target));
   if(!pristine.validate()) {
-    evt.preventDefault();
+    return;
   }
+  imgSubmitButton.disabled=true;
+  sendData(closeImgUploadPopup, showAlert, new FormData(evt.target));
+  imageUploadForm.disabled=false;
 });
 
 document.addEventListener('keyup', () => {
