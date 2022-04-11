@@ -5,6 +5,8 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+const body = document.querySelector('body');
+
 const isStringAccepted = (inspectedString, maxLength) => {
   if (inspectedString.length <= maxLength) {
     return true;
@@ -47,4 +49,4 @@ const removeEscapeListener = () => document.removeEventListener('keydown', handl
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert};
+export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body};
