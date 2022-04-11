@@ -2,11 +2,33 @@ import './pictures.js';
 import {imageUploadForm, closeImgUploadPopup } from './uploadNewImage.js';
 import '../pristine/pristine.min.js';
 import {sendData} from './api.js';
-import {showAlert} from './utils.js';
+import {body} from './utils.js';
 
 const HASHTAG_MAX_COUNT = 5;
 const maxLengthComment = 140;
 const imgSubmitButton = document.querySelector('.img-upload__submit');
+
+const messageSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+
+const showMessageModal = (message, classType) => {
+  body.append(message);
+
+  const buttonMessage = message.querySelector(`.${classType}__button`);
+
+  buttonMessage.addEventListener('click', () => {
+    message.remove();
+  });
+
+
+  document.addEventListener('click', (evt) => {
+    const inner = message.querySelector(`.${classType}__inner`);
+    const click = evt.composedPath().includes(inner);
+    if (!click) {
+      message.remove();
+    }
+  });
+};
+
 
 const pristine = new Pristine(imageUploadForm , {
   classTo: 'text-item',
@@ -36,12 +58,11 @@ pristine.addValidator(document.querySelector('[name="description"]'), commentLen
 
 imageUploadForm .addEventListener('submit', (evt) => {
   evt.preventDefault();
-  //console.log(new FormData(evt.target));
   if(!pristine.validate()) {
     return;
   }
   imgSubmitButton.disabled=true;
-  sendData(closeImgUploadPopup, showAlert, new FormData(evt.target));
+  sendData(closeImgUploadPopup, showMessageModal(messageSuccessTemplate, 'success'), new FormData(evt.target));
   imageUploadForm.disabled=false;
 });
 
@@ -49,5 +70,5 @@ document.addEventListener('keyup', () => {
   imgSubmitButton.disabled = !pristine.validate();
 });
 
-export {pristine, maxLengthComment};
+export {pristine, maxLengthComment, imgSubmitButton};
 

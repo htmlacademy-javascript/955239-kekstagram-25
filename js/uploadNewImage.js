@@ -1,6 +1,7 @@
 import './galery.js';
 import { pristine } from './form-validate.js';
 import { setDefaultScale, removeEffect } from './form-effect.js';
+import {imgSubmitButton} from './form-validate.js';
 
 //загрузка нового изображения
 const imageContainer = document.querySelector('.img-upload');
@@ -28,6 +29,7 @@ const handleEscape = (evt) => {
 };
 
 const openImgUploadPopup = () => {
+  imgSubmitButton.disabled=false;
   tagsForm.value='';
   commentForm.value='';
   pristine.validate();
