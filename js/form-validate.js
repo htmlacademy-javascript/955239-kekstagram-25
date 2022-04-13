@@ -9,6 +9,7 @@ const maxLengthComment = 140;
 const imgSubmitButton = document.querySelector('.img-upload__submit');
 
 const messageSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+const messageErrorTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const showMessageModal = (message, classType) => {
   body.append(message);
@@ -27,6 +28,16 @@ const showMessageModal = (message, classType) => {
       message.remove();
     }
   });
+};
+
+const onSuccess = () => {
+  closeImgUploadPopup();
+  showMessageModal(messageSuccessTemplate, 'success');
+};
+
+const onFail = () => {
+  closeImgUploadPopup();
+  showMessageModal(messageErrorTemplate, 'error');
 };
 
 
@@ -62,7 +73,7 @@ imageUploadForm .addEventListener('submit', (evt) => {
     return;
   }
   imgSubmitButton.disabled=true;
-  sendData(closeImgUploadPopup, showMessageModal(messageSuccessTemplate, 'success'), new FormData(evt.target));
+  sendData(onSuccess, onFail, new FormData(evt.target));
   imageUploadForm.disabled=false;
 });
 
@@ -70,5 +81,5 @@ document.addEventListener('keyup', () => {
   imgSubmitButton.disabled = !pristine.validate();
 });
 
-export {pristine, maxLengthComment, imgSubmitButton};
+export {pristine, maxLengthComment, imgSubmitButton, onFail};
 

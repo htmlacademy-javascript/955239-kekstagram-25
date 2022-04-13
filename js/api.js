@@ -1,9 +1,9 @@
-const getData = (onSuccess) => {
+const getData = (onSuccess, onFail) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((photos) => {
       onSuccess(photos);
-    });
+    }).catch(() => onFail('При загрузке данных с сервера произошла ошибка'));
 };
 
 const sendData = (onSuccess, onFail, body) => {
