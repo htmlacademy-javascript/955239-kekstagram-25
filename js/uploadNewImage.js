@@ -1,6 +1,7 @@
 import './galery.js';
 import { pristine } from './form-validate.js';
 import { setDefaultScale, removeEffect } from './form-effect.js';
+import {imgSubmitButton} from './form-validate.js';
 
 //загрузка нового изображения
 const imageContainer = document.querySelector('.img-upload');
@@ -15,6 +16,7 @@ const previewPhoto = document.querySelector('.img-upload__preview img');
 const closeEditButton = document.querySelector('.img-upload__cancel ');
 
 const closeImgUploadPopup = () => {
+  imageUploadForm.reset();
   imgPopupUpload.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };
@@ -27,6 +29,7 @@ const handleEscape = (evt) => {
 };
 
 const openImgUploadPopup = () => {
+  imgSubmitButton.disabled=false;
   tagsForm.value='';
   commentForm.value='';
   pristine.validate();

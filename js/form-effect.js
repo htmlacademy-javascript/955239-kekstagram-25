@@ -142,6 +142,7 @@ effectItems.forEach((item) => {
 
 const removeEffect = () => {
   effectItems[0].checked=true;
+  uploadPreview.style = '';
   uploadPreview.classList.value = 'img-upload__preview effects__preview--none';
   sliderElement.classList.add('hidden');
 };
