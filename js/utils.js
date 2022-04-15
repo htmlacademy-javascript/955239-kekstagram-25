@@ -5,6 +5,21 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+const getNRandomObjectsFromArray = (arr, n) => {
+  if (n < 1) {
+    throw new Error('Ошибка загрузки изображения');
+  }
+  if (n >= arr.length) {
+    return arr;
+  }
+  const arrCopy = arr.slice();
+  const res = [];
+  for(let i = 0; i < n; i++){
+    res.push(arrCopy.splice(getRandomNumber(0,arrCopy.length),1)[0]);
+  }
+  return res;
+};
+
 const body = document.querySelector('body');
 
 const isStringAccepted = (inspectedString, maxLength) => {
@@ -49,4 +64,4 @@ const removeEscapeListener = () => document.removeEventListener('keydown', handl
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body};
+export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body, getNRandomObjectsFromArray};
