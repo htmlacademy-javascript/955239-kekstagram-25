@@ -1,5 +1,5 @@
-import './pictures.js';
-import {imageUploadForm, closeImgUploadPopup } from './uploadNewImage.js';
+import { photos, rerender } from './pictures.js';
+import {imageUploadForm, closeImgUploadPopup, uploadFile } from './uploadNewImage.js';
 import '../pristine/pristine.min.js';
 import {sendData} from './api.js';
 import {body} from './utils.js';
@@ -31,8 +31,10 @@ const showMessageModal = (message, classType) => {
 };
 
 const onSuccess = () => {
+  photos.push({url: uploadFile, comments: [], likes: 0});
   closeImgUploadPopup();
   showMessageModal(messageSuccessTemplate, 'success');
+  rerender();
 };
 
 const onFail = () => {

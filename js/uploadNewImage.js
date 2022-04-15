@@ -3,17 +3,18 @@ import { pristine } from './form-validate.js';
 import { setDefaultScale, removeEffect } from './form-effect.js';
 import {imgSubmitButton} from './form-validate.js';
 
-//загрузка нового изображения
 const imageContainer = document.querySelector('.img-upload');
 const imageUploadWrapper = imageContainer.querySelector('.img-upload__wrapper');
 const imageUploadForm = imageContainer.querySelector('.img-upload__form');
-const imgPopupUpload = document.querySelector('.img-upload__overlay');//форма редактирования
-const imgPopupCloseButton = document.querySelector('#upload-cancel');//кнопка закрыть
-const imgUploadButton = document.querySelector('#upload-file');//начальное состояние
-const tagsForm = document.querySelector('.text__hashtags');//добавление комментариев и хэш-тегов
-const commentForm = document.querySelector('.text__description');//..ваш комментарий
+const imgPopupUpload = document.querySelector('.img-upload__overlay');
+const imgPopupCloseButton = document.querySelector('#upload-cancel');
+const imgUploadButton = document.querySelector('#upload-file');
+const tagsForm = document.querySelector('.text__hashtags');
+const commentForm = document.querySelector('.text__description');
 const previewPhoto = document.querySelector('.img-upload__preview img');
 const closeEditButton = document.querySelector('.img-upload__cancel ');
+
+let uploadFile;
 
 const closeImgUploadPopup = () => {
   imageUploadForm.reset();
@@ -60,7 +61,8 @@ imgUploadButton.addEventListener('change', () => {
     previewPhoto.onload = () => {
       URL.revokeObjectURL(previewPhoto.src);
     };
-    previewPhoto.src = URL.createObjectURL(file);
+    uploadFile = URL.createObjectURL(file);
+    previewPhoto.src =  URL.createObjectURL(file);
     openImgUploadPopup();
   }
 });
@@ -70,4 +72,4 @@ closeEditButton.addEventListener('click', () => {
   document.removeEventListener('keydown', handleEscape);
 });
 
-export {imgPopupUpload, imgPopupCloseButton, imgUploadButton, commentForm, imageUploadForm, imageUploadWrapper, closeImgUploadPopup};
+export {imgPopupUpload, imgPopupCloseButton, imgUploadButton, commentForm, imageUploadForm, imageUploadWrapper, closeImgUploadPopup, uploadFile};
