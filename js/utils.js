@@ -58,10 +58,17 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+let timeoutId;
+
 const addEscapeListener = (action) => document.addEventListener('keydown', (evt) => handleEscape(evt, action));
 
 const removeEscapeListener = () => document.removeEventListener('keydown', handleEscape);
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body, getNRandomObjectsFromArray};
+const debounce = (callback, timeoutDelay) => (...rest) => {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+};
+
+export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body, getNRandomObjectsFromArray, debounce};
