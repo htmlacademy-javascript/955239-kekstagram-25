@@ -13,13 +13,11 @@ let photos = [];
 
 const deactivateButtons = () => buttons.forEach((button) => {
   button.classList.remove('img-filters__button--active');
-  //button.disabled = true;
 });
 
 const activateButtonById = (id) => {
   buttons.forEach((button) => {
     button.classList.add(button.id === id && 'img-filters__button--active');
-    //button.disabled = button.id === id;
   });
 };
 
@@ -41,10 +39,6 @@ const renderPictures = (pictures) => {
   pictureContainer.appendChild(fragment);
 };
 
-/*const debounceCallback = (id, pics) => {
-  activateButtonById(id);
-  renderPictures(pics);
-};*/
 
 const onFilterClick = (id) => {
   deactivateButtons();
@@ -53,7 +47,7 @@ const onFilterClick = (id) => {
     case 'filter-default':
       return renderPictures(photos);
     case 'filter-random':
-      return renderPictures(getNRandomObjectsFromArray(photos,10))
+      return renderPictures(getNRandomObjectsFromArray(photos,10));
     case 'filter-discussed':
       return renderPictures(photos.slice().sort((a, b) => b.comments.length - a.comments.length));
   }
