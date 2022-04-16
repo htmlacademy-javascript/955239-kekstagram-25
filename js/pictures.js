@@ -13,13 +13,11 @@ let photos = [];
 
 const deactivateButtons = () => buttons.forEach((button) => {
   button.classList.remove('img-filters__button--active');
-  button.disabled = true;
 });
 
 const activateButtonById = (id) => {
   buttons.forEach((button) => {
     button.classList.add(button.id === id && 'img-filters__button--active');
-    button.disabled = button.id === id;
   });
 };
 
@@ -41,29 +39,26 @@ const renderPictures = (pictures) => {
   pictureContainer.appendChild(fragment);
 };
 
-const debounceCallback = (id, pics) => {
-  activateButtonById(id);
-  renderPictures(pics);
-};
 
-const onFilterClick = (id,delay) => {
+const onFilterClick = (id) => {
   deactivateButtons();
+  activateButtonById(id);
   switch (id) {
     case 'filter-default':
-      return debounce(debounceCallback, delay)(id, photos);
+      return renderPictures(photos);
     case 'filter-random':
-      return debounce(debounceCallback, delay)(id, getNRandomObjectsFromArray(photos,10));
+      return renderPictures(getNRandomObjectsFromArray(photos,10));
     case 'filter-discussed':
-      return debounce(debounceCallback, delay)(id, photos.slice().sort((a, b) => b.comments.length - a.comments.length));
+      return renderPictures(photos.slice().sort((a, b) => b.comments.length - a.comments.length));
   }
 };
 
 const rerender = () => {
   const activeButton = Array.from(buttons).filter((button) => button.classList.contains('img-filters__button--active'));
-  onFilterClick(activeButton.length === 1 && activeButton[0].id, 0);
+  onFilterClick(activeButton.length === 1 && activeButton[0].id);
 };
 
-buttonsForm.addEventListener('click', (evt) => onFilterClick(evt.target.id, 500));
+buttonsForm.addEventListener('click', (evt) => debounce(onFilterClick, 500)(evt.target.id));
 
 const onSuccess = (pictures) => {
   photos = pictures;
