@@ -1,5 +1,8 @@
+const addressLinkDownload = 'https://25.javascript.pages.academy/kekstagram/data';
+const addressLinkSending = 'https://25.javascript.pages.academy/kekstagram';
+
 const getData = (onSuccess, onFail) => {
-  fetch('https://25.javascript.pages.academy/kekstagram/data')
+  fetch(addressLinkDownload)
     .then((response) => response.json())
     .then((photos) => {
       onSuccess(photos);
@@ -8,7 +11,7 @@ const getData = (onSuccess, onFail) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    addressLinkSending,
     {
       method: 'POST',
       body,

@@ -2,7 +2,6 @@ import './comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentsContainer = bigPicture.querySelector('.social__comments');
-const commentTemplate = bigPicture.querySelector('.social__comment');
 const loaderComments = bigPicture.querySelector('.social__comments-loader');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const bigPicturesCancel= bigPicture.querySelector('.big-picture__cancel');
@@ -22,8 +21,8 @@ const createCommentItem = (comment) => {
 
 const commentsFragment = document.createDocumentFragment();
 
-const showBigPicture = (picture) => {
-  const appendComments = () => {
+const showHandlerBigPicture = (picture) => {
+  const appendHandlerComments = () => {
     picture.comments.slice(commentsContainer.childElementCount, commentsContainer.childElementCount+5)
       .forEach((comment) => commentsFragment.appendChild(createCommentItem(comment)));
     commentsContainer.appendChild(commentsFragment);
@@ -35,28 +34,28 @@ const showBigPicture = (picture) => {
     }
   };
 
-  const hideBigPicture = () => {
+  const hideHandlerBigPicture = () => {
     document.body.classList.remove('modal-open');
     bigPicture.classList.add('hidden');
     commentsContainer.innerHTML = '';
-    bigPicturesCancel.removeEventListener('click', hideBigPicture);
-    loaderComments.removeEventListener('click', appendComments);
+    bigPicturesCancel.removeEventListener('click', hideHandlerBigPicture);
+    loaderComments.removeEventListener('click', appendHandlerComments);
   };
 
-  bigPicturesCancel.addEventListener('click', hideBigPicture);
-  loaderComments.addEventListener('click', appendComments);
+  bigPicturesCancel.addEventListener('click', hideHandlerBigPicture);
+  loaderComments.addEventListener('click', appendHandlerComments);
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
   bigPicture.querySelector('.big-picture__img img').alt = picture.id;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   bigPicture.querySelector('.social__caption').textContent = picture.description;
-  appendComments();
+  appendHandlerComments();
 
   document.body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
 
   const handleEscape = (evt) => {
     if(evt.key === 'Escape') {
-      hideBigPicture();
+      hideHandlerBigPicture();
       document.removeEventListener('keydown', handleEscape);
     }
   };
@@ -64,4 +63,4 @@ const showBigPicture = (picture) => {
   document.addEventListener('keydown', handleEscape);
 };
 
-export {showBigPicture, bigPicture, commentsContainer, commentTemplate, loaderComments, socialCommentCount};
+export {showHandlerBigPicture, bigPicture};

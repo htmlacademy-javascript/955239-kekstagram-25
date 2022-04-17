@@ -83,5 +83,5 @@ document.addEventListener('keyup', () => {
   imgSubmitButton.disabled = !pristine.validate();
 });
 
-export {pristine, MAX_LENGTH_COMMENT, imgSubmitButton, onFail};
+export {pristine, imgSubmitButton, onFail};
 
