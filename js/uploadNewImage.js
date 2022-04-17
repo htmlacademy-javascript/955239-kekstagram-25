@@ -4,10 +4,8 @@ import { setDefaultScale, removeEffect } from './form-effect.js';
 import {imgSubmitButton} from './form-validate.js';
 
 const imageContainer = document.querySelector('.img-upload');
-const imageUploadWrapper = imageContainer.querySelector('.img-upload__wrapper');
 const imageUploadForm = imageContainer.querySelector('.img-upload__form');
 const imgPopupUpload = document.querySelector('.img-upload__overlay');
-const imgPopupCloseButton = document.querySelector('#upload-cancel');
 const imgUploadButton = document.querySelector('#upload-file');
 const tagsForm = document.querySelector('.text__hashtags');
 const commentForm = document.querySelector('.text__description');
@@ -72,4 +70,4 @@ closeEditButton.addEventListener('click', () => {
   document.removeEventListener('keydown', handleEscape);
 });
 
-export {imgPopupUpload, imgPopupCloseButton, imgUploadButton, commentForm, imageUploadForm, imageUploadWrapper, closeImgUploadPopup, uploadFile};
+export { imageUploadForm, closeImgUploadPopup, uploadFile};

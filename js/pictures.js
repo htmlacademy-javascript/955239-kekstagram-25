@@ -1,5 +1,4 @@
-import {formsSimilarEntity} from './data.js';
-import {showBigPicture} from './galery.js';
+import {showHandlerBigPicture} from './galery.js';
 import { getData } from './api.js';
 import { getNRandomObjectsFromArray, debounce } from './utils.js';
 
@@ -8,7 +7,6 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const buttons = document.querySelectorAll('.img-filters__button');
 const buttonsForm = document.querySelector('.img-filters__form');
 
-const picureTemlateRandom = formsSimilarEntity();
 let photos = [];
 
 const deactivateButtons = () => buttons.forEach((button) => {
@@ -33,7 +31,7 @@ const renderPictures = (pictures) => {
     pictureItem.querySelector('.picture__img').src = url;
     pictureItem.querySelector('.picture__comments').textContent = comments.length;
     pictureItem.querySelector('.picture__likes').textContent = likes;
-    pictureItem.addEventListener('click', ()=> showBigPicture(picture));
+    pictureItem.addEventListener('click', ()=> showHandlerBigPicture(picture));
     fragment.appendChild(pictureItem);
   });
   pictureContainer.appendChild(fragment);
@@ -93,4 +91,4 @@ const onFail = (message) => {
 getData(onSuccess, onFail);
 
 
-export {pictureContainer, pictureTemplate, picureTemlateRandom, photos, renderPictures, rerender};
+export { photos, rerender};
