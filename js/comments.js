@@ -30,4 +30,4 @@ const createRandomComment = () => (
   }
 );
 
-export {createRandomComment, MESSAGES_COMMENTS, NAMES_USERS};
+export {createRandomComment};
