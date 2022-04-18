@@ -2,6 +2,7 @@ import './galery.js';
 import { pristine } from './form-validate.js';
 import { setDefaultScale, removeEffect } from './form-effect.js';
 import {imgSubmitButton} from './form-validate.js';
+import { showElement, hideElement }from './utils.js';
 
 const imageContainer = document.querySelector('.img-upload');
 const imageUploadForm = imageContainer.querySelector('.img-upload__form');
@@ -16,14 +17,13 @@ let uploadFile;
 
 const closeImgUploadPopup = () => {
   imageUploadForm.reset();
-  imgPopupUpload.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  hideElement(imgPopupUpload);
 };
 
-const handleEscape = (evt) => {
+const escapeHandler = (evt) => {
   if(evt.key === 'Escape') {
     closeImgUploadPopup();
-    document.removeEventListener('keydown', handleEscape);
+    document.removeEventListener('keydown', escapeHandler);
   }
 };
 
@@ -32,25 +32,24 @@ const openImgUploadPopup = () => {
   tagsForm.value='';
   commentForm.value='';
   pristine.validate();
-  imgPopupUpload.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', handleEscape);
+  showElement(imgPopupUpload);
+  document.addEventListener('keydown', escapeHandler);
   setDefaultScale();
   removeEffect();
 };
 
 commentForm.addEventListener('focus', () => {
-  document.removeEventListener('keydown', handleEscape);
+  document.removeEventListener('keydown', escapeHandler);
 });
 commentForm.addEventListener('focusout', () => {
-  document.addEventListener('keydown', handleEscape);
+  document.addEventListener('keydown', escapeHandler);
 });
 
 tagsForm.addEventListener('focus', () => {
-  document.removeEventListener('keydown', handleEscape);
+  document.removeEventListener('keydown', escapeHandler);
 });
 tagsForm.addEventListener('focusout', () => {
-  document.addEventListener('keydown', handleEscape);
+  document.addEventListener('keydown', escapeHandler);
 });
 
 imgUploadButton.addEventListener('change', () => {
@@ -67,7 +66,7 @@ imgUploadButton.addEventListener('change', () => {
 
 closeEditButton.addEventListener('click', () => {
   closeImgUploadPopup();
-  document.removeEventListener('keydown', handleEscape);
+  document.removeEventListener('keydown', escapeHandler);
 });
 
 export { imageUploadForm, closeImgUploadPopup, uploadFile};

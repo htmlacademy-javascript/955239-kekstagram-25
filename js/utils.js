@@ -29,12 +29,6 @@ const isStringAccepted = (inspectedString, maxLength) => {
   return false;
 };
 
-const handleEscape = (evt, action) => {
-  if(evt.key === 'Escape') {
-    action();
-    document.removeEventListener('keydown', handleEscape);
-  }
-};
 const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
@@ -60,10 +54,6 @@ const showAlert = (message) => {
 
 let timeoutId;
 
-const addEscapeListener = (action) => document.addEventListener('keydown', (evt) => handleEscape(evt, action));
-
-const removeEscapeListener = () => document.removeEventListener('keydown', handleEscape);
-
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 const debounce = (callback, timeoutDelay) => (...rest) => {
@@ -71,4 +61,14 @@ const debounce = (callback, timeoutDelay) => (...rest) => {
   timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
 };
 
-export {getRandomNumber, getRandomArrayElement, isStringAccepted, addEscapeListener, removeEscapeListener, showAlert, body, getNRandomObjectsFromArray, debounce};
+const showElement = (element) => {
+  document.body.classList.add('modal-open');
+  element.classList.remove('hidden');
+};
+
+const hideElement = (element) => {
+  document.body.classList.remove('modal-open');
+  element.classList.add('hidden');
+};
+
+export {getRandomNumber, getRandomArrayElement, isStringAccepted, showAlert, body, getNRandomObjectsFromArray, debounce, showElement, hideElement};

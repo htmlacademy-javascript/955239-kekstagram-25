@@ -51,7 +51,7 @@ const onFilterClick = (id) => {
   }
 };
 
-const rerender = () => {
+const refreshPhotos = () => {
   const activeButton = Array.from(buttons).filter((button) => button.classList.contains('img-filters__button--active'));
   onFilterClick(activeButton.length === 1 && activeButton[0].id);
 };
@@ -91,4 +91,4 @@ const onFail = (message) => {
 getData(onSuccess, onFail);
 
 
-export { photos, rerender};
+export { photos, refreshPhotos};

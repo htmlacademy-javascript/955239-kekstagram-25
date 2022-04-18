@@ -1,4 +1,4 @@
-import { photos, rerender } from './pictures.js';
+import { photos, refreshPhotos } from './pictures.js';
 import {imageUploadForm, closeImgUploadPopup, uploadFile } from './uploadNewImage.js';
 import '../pristine/pristine.min.js';
 import {sendData} from './api.js';
@@ -34,7 +34,7 @@ const onSuccess = () => {
   photos.push({url: uploadFile, comments: [], likes: 0});
   closeImgUploadPopup();
   showMessageModal(messageSuccessTemplate, 'success');
-  rerender();
+  refreshPhotos();
 };
 
 const onFail = () => {
@@ -52,7 +52,7 @@ const pristine = new Pristine(imageUploadForm , {
   errorTextClass: 'text__error',
 });
 
-const hashtagsCommentValidate = (value) => {
+const validateFormFields= (value) => {
   const regularExpressionFragment = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
   if (value.length === 0) {
     return true;
@@ -63,7 +63,7 @@ const hashtagsCommentValidate = (value) => {
   }
   return hashtags.every((hashtag) => regularExpressionFragment.test(hashtag));
 };
-pristine.addValidator(document.querySelector('[name="hashtags"]'), hashtagsCommentValidate, 'xэш-тег начинается с символа #, не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;,не может состоять только из одной #,максимальная длина одного хэш-тега 20 символов, включая решётку,нечувствительны к регистру,разделяются пробелами,один и тот же хэш-тег не может быть использован дважды;,нельзя указать больше пяти хэш-тегов;');
+pristine.addValidator(document.querySelector('[name="hashtags"]'), validateFormFields, 'xэш-тег начинается с символа #, не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;,не может состоять только из одной #,максимальная длина одного хэш-тега 20 символов, включая решётку,нечувствительны к регистру,разделяются пробелами,один и тот же хэш-тег не может быть использован дважды;,нельзя указать больше пяти хэш-тегов;');
 
 const commentLengthCheck = (value) => value.length <= MAX_LENGTH_COMMENT;
 pristine.addValidator(document.querySelector('[name="description"]'), commentLengthCheck, 'не больше 140 символов');
