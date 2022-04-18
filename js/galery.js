@@ -1,4 +1,4 @@
-import './comments.js';
+import { showElement, hideElement } from './utils.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentsContainer = bigPicture.querySelector('.social__comments');
@@ -10,19 +10,26 @@ const createCommentItem = (comment) => {
   const commentItem = document.createElement('li');
   commentItem.classList.add('social__comment');
 
-  commentItem.innerHTML = `<img
-    class="social__picture"
-    src="${comment.avatar}"
-    alt="${comment.nameusers}"
-    width="35" height="35">
-  <p class="social__text">${comment.message}</p>`;
+  const image = document.createElement('img');
+  image.classList.add('social__picture');
+  image.src=`${comment.avatar}`;
+  image.alt=`${comment.nameusers}`;
+  image.width=35;
+  image.height=35;
+  commentItem.appendChild(image);
+
+  const commentText = document.createElement('p');
+  commentText.classList.add('social__text');
+  commentText.textContent=`${comment.message}`;
+  commentItem.appendChild(commentText);
+
   return commentItem;
 };
 
 const commentsFragment = document.createDocumentFragment();
 
 const showHandlerBigPicture = (picture) => {
-  const appendHandlerComments = () => {
+  const commentsAppendClickHandler = () => {
     picture.comments.slice(commentsContainer.childElementCount, commentsContainer.childElementCount+5)
       .forEach((comment) => commentsFragment.appendChild(createCommentItem(comment)));
     commentsContainer.appendChild(commentsFragment);
@@ -34,33 +41,27 @@ const showHandlerBigPicture = (picture) => {
     }
   };
 
-  const hideHandlerBigPicture = () => {
-    document.body.classList.remove('modal-open');
-    bigPicture.classList.add('hidden');
-    commentsContainer.innerHTML = '';
-    bigPicturesCancel.removeEventListener('click', hideHandlerBigPicture);
-    loaderComments.removeEventListener('click', appendHandlerComments);
+  const imgHideHandler = (evt) => {
+    if (evt.type === 'click' || (evt.type === 'keydown' && evt.key === 'Escape')) {
+      hideElement(bigPicture);
+      commentsContainer.innerHTML = '';
+      bigPicturesCancel.removeEventListener('click', imgHideHandler);
+      loaderComments.removeEventListener('click', commentsAppendClickHandler);
+      document.removeEventListener('keydown', imgHideHandler);
+    }
   };
 
-  bigPicturesCancel.addEventListener('click', hideHandlerBigPicture);
-  loaderComments.addEventListener('click', appendHandlerComments);
+  bigPicturesCancel.addEventListener('click', imgHideHandler);
+  loaderComments.addEventListener('click', commentsAppendClickHandler);
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
   bigPicture.querySelector('.big-picture__img img').alt = picture.id;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   bigPicture.querySelector('.social__caption').textContent = picture.description;
-  appendHandlerComments();
+  commentsAppendClickHandler();
 
-  document.body.classList.add('modal-open');
-  bigPicture.classList.remove('hidden');
+  showElement(bigPicture);
 
-  const handleEscape = (evt) => {
-    if(evt.key === 'Escape') {
-      hideHandlerBigPicture();
-      document.removeEventListener('keydown', handleEscape);
-    }
-  };
-
-  document.addEventListener('keydown', handleEscape);
+  document.addEventListener('keydown', imgHideHandler);
 };
 
 export {showHandlerBigPicture, bigPicture};

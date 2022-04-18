@@ -1,5 +1,10 @@
 import './uploadNewImage.js';
 
+const MIN_IMG_SCALE = 25;
+const MAX_IMG_SCALE = 100;
+const IMG_SCALE_STEP = 25;
+const DEFAULT_EFFECT_VALUE = 100;
+
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectItems = document.querySelectorAll('.effects__radio');
 
@@ -18,24 +23,19 @@ const controlValue = document.querySelector('.scale__control--value');
 const uploadPreview = document.querySelector('#preview-image');
 const uploadPreviewImg = uploadPreview.querySelector('img');
 
-const MIN_IMG_SCALE = 25;
-const MAX_IMG_SCALE = 100;
-const IMG_SCALE_STEP = 25;
-const DEFAULT_EFFECT_VALUE = 100;
-
 const setScale = (newScale) => {
   controlValue.setAttribute('value', `${newScale}%`);
   uploadPreviewImg.setAttribute('style', `transform: scale(${newScale / 100})`);
 };
 
-const imgScaleSmaller = () => {
+const decreaseImgScale = () => {
   const scaleValue = parseInt(controlValue.getAttribute('value'), 10) - IMG_SCALE_STEP;
   if (scaleValue >= MIN_IMG_SCALE) {
     setScale(scaleValue);
   }
 };
 
-const imgScaleBigger = () => {
+const increaseImgScale = () => {
   const scaleValue = parseInt(controlValue.getAttribute('value'), 10) + IMG_SCALE_STEP;
   if (scaleValue <= MAX_IMG_SCALE) {
     setScale(scaleValue);
@@ -46,12 +46,12 @@ const setDefaultScale = () => setScale(DEFAULT_EFFECT_VALUE);
 
 
 buttonControlSmaller.addEventListener('click', () => {
-  imgScaleSmaller();
+  decreaseImgScale();
 });
 
 
 buttonControlBigger.addEventListener('click', () => {
-  imgScaleBigger();
+  increaseImgScale();
 });
 
 effectItems.forEach((item) => {
